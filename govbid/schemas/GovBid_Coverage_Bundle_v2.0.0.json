@@ -1,0 +1,165 @@
+{
+  "schema": "govbid.coverage_bundle",
+  "template_name": "GovBid Innovations LLC \u2014 Coverage Bundle (Project Attachment)",
+  "version": "2.0.0",
+  "effective_date": "2026-02-27",
+  "company": "GovBid Innovations LLC",
+  "purpose": [
+    "Authoritative geography eligibility controls for BID/NO-BID gating.",
+    "Prevents misuse of non-authoritative 'pins', 'authorities', and map labels as coverage evidence."
+  ],
+  "read_order": [
+    "1) Prime Directive (Project System Instructions) controls.",
+    "2) Use this Coverage Bundle only for geographic eligibility gating and coverage evidence rules.",
+    "3) If any conflict exists, Prime Directive controls."
+  ],
+  "source_of_truth": {
+    "locked_profile_file": "01_LOCKED_Profile_GovBid_Innovations_LLC_v1.1.json (LOCKED)",
+    "coverage_fields_authoritative": [
+      "coverage_map.coverage.states_by_name",
+      "coverage_map.coverage.counties_by_fips"
+    ]
+  },
+  "bid_gating_rules": {
+    "authoritative_fields": [
+      "coverage_map.coverage.states_by_name",
+      "coverage_map.coverage.counties_by_fips"
+    ],
+    "explicitly_non_gating_fields": [
+      "coverage_map.coverage.pins_city_level",
+      "coverage_map.coverage.pins_authorities",
+      "map_labels"
+    ],
+    "hard_rule": "Only states_by_name and counties_by_fips may be used to gate BID/NO-BID. Pins and map labels are visualization/reference only and must never be treated as coverage proof.",
+    "output_requirement": [
+      "When declaring an opportunity 'in coverage' or 'out of coverage', cite the authoritative list item used (state name or county FIPS).",
+      "If coverage cannot be determined from authoritative lists, output: NEEDS-DATA and specify what is missing."
+    ]
+  },
+  "coverage_map": {
+    "schema": "govbid.vendor_coverage_map",
+    "version": "2.0",
+    "coverage": {
+      "states_by_name": [
+        "Alabama",
+        "Arkansas",
+        "California",
+        "Connecticut",
+        "Delaware",
+        "Florida",
+        "Georgia",
+        "Idaho",
+        "Illinois",
+        "Indiana",
+        "Iowa",
+        "Kansas",
+        "Louisiana",
+        "Maryland",
+        "Massachusetts",
+        "Minnesota",
+        "Missouri",
+        "Montana",
+        "Nevada",
+        "New Jersey",
+        "New York",
+        "North Carolina",
+        "North Dakota",
+        "Oklahoma",
+        "Oregon",
+        "Rhode Island",
+        "South Carolina",
+        "Texas",
+        "Washington",
+        "West Virginia"
+      ],
+      "counties_by_fips": [
+        {
+          "name": "Schenectady County, NY",
+          "fips": "36093"
+        },
+        {
+          "name": "Ocean County, NJ",
+          "fips": "34029"
+        },
+        {
+          "name": "Anne Arundel County, MD",
+          "fips": "24003"
+        },
+        {
+          "name": "Montgomery County, MD",
+          "fips": "24031"
+        },
+        {
+          "name": "Washington County, MD",
+          "fips": "24043"
+        },
+        {
+          "name": "Jefferson County, AL",
+          "fips": "01073"
+        }
+      ]
+    },
+    "non_gating_visual_reference_only": {
+      "pins_city_level": [
+        {
+          "label": "GovBid HQ (City-Level) \u2014 Schenectady, NY",
+          "place_query": "Schenectady, NY"
+        },
+        {
+          "label": "New York City, NY",
+          "place_query": "New York City, NY"
+        },
+        {
+          "label": "Tampa, FL",
+          "place_query": "Tampa, FL"
+        },
+        {
+          "label": "Amherst, MA",
+          "place_query": "Amherst, MA"
+        }
+      ],
+      "pins_authorities": [
+        {
+          "label": "Metropolitan Transportation Authority (NY)",
+          "place_query": "Metropolitan Transportation Authority, New York, NY"
+        },
+        {
+          "label": "Massachusetts Water Resources Authority",
+          "place_query": "Massachusetts Water Resources Authority, Boston, MA"
+        },
+        {
+          "label": "Memphis\u2013Shelby County Airport Authority",
+          "place_query": "Memphis-Shelby County Airport Authority, Memphis, TN"
+        },
+        {
+          "label": "Schenectady City School District (NY)",
+          "place_query": "Schenectady City School District, Schenectady, NY"
+        }
+      ],
+      "map_labels": {
+        "status": "NON_COVERAGE_REFERENCE",
+        "not_for_bid_gating": true,
+        "description": "City/place labels are informational only and must not be used as coverage or eligibility data."
+      }
+    }
+  },
+  "anomaly_log": [
+    {
+      "id": "COV-001",
+      "severity": "HIGH",
+      "issue": "Authority pin references Tennessee (Memphis) but Tennessee is not in coverage.states_by_name allowlist.",
+      "impact": "Could be misinterpreted as covered geography if pins are incorrectly used for gating.",
+      "mitigation": [
+        "Pins are explicitly non-gating (visual only).",
+        "If Tennessee is truly covered, update the LOCKED profile and then update states_by_name accordingly via an explicit 'Update locked profile' process."
+      ]
+    }
+  ],
+  "change_log": [
+    {
+      "version": "2.0.0",
+      "date": "2026-02-27",
+      "summary": "Recreated as a Project attachment: simplified to gating controls + authoritative lists; kept anomaly guardrails; clarified output requirements."
+    }
+  ]
+}

@@ -1,0 +1,445 @@
+{
+  "schema": "govbid.dossier_template",
+  "template_name": "GovBid Innovations LLC \u2014 Solicitation Dossier (Goods-Only, Compliance-First)",
+  "version": "2.1.0",
+  "effective_date": "2026-02-27",
+  "authoritative_format": "json",
+  "read_order": [
+    "1) Apply Project System Instructions (Prime Directive) as controlling policy.",
+    "2) Use this Dossier Template to structure extraction, evidence logging, math, gating, and final outputs.",
+    "3) If any conflict exists, Prime Directive controls."
+  ],
+  "global_controls_locked": {
+    "baseline_min_gm_percent": 25,
+    "planned_trailing_90d_overhead_percent": 14,
+    "nm_target_percent": 10,
+    "nm_floor_percent": 8,
+    "nm_healthy_range_percent": "12\u201325",
+    "freeze_mode_min_annualized_revenue_per_award_usd": 25000
+  },
+  "global_banners": [
+    "GOODS-ONLY HARD STOP: Any required services beyond incidental freight delivery => NO-BID unless CEO-approved exception.",
+    "EVIDENCE STANDARD: Compliance-critical items require verbatim quotes with page+section. Missing items must be labeled: NOT FOUND after review of pages X\u2013Y (or NOT PROVIDED if document absent).",
+    "COVERAGE GATING: Use only authoritative allowlists (states_by_name and counties_by_fips). Pins/authority lists are visual-only; not gating evidence.",
+    "FEDERAL ELIGIBILITY: If Active SAM is required and proof is not provided => NO-BID.",
+    "PRICING: Delivered direct cost basis only. Financing costs must be embedded (financing uplift) if used.",
+    "CONFIDENTIALITY: Do not disclose internal credit limits, cash constraints, or financing terms in public bids unless explicitly required."
+  ],
+  "margin_control_table": {
+    "basis": "trailing_90_day_net_margin_percent",
+    "bands": [
+      {
+        "nm_min_inclusive": 12.0,
+        "nm_max_exclusive": null,
+        "min_gm_percent": 25,
+        "actions": [
+          "Maintain baseline Min GM"
+        ]
+      },
+      {
+        "nm_min_inclusive": 10.0,
+        "nm_max_exclusive": 12.0,
+        "min_gm_percent": 25,
+        "actions": [
+          "Maintain baseline Min GM",
+          "Monitor DSO-real and cash reserves"
+        ]
+      },
+      {
+        "nm_min_inclusive": 8.0,
+        "nm_max_exclusive": 10.0,
+        "min_gm_percent": 28,
+        "actions": [
+          "Raise Min GM +3",
+          "Reduce low-margin bid volume by 15%",
+          "Receivables financing only with written financeability and fee-adjusted GM pass"
+        ]
+      },
+      {
+        "nm_min_inclusive": null,
+        "nm_max_exclusive": 8.0,
+        "min_gm_percent": "31\u201332",
+        "actions": [
+          "Raise Min GM +6 to +7",
+          "Freeze bids under $25,000 annualized revenue/award",
+          "Prioritize high-margin low-risk only",
+          "CEO approval for bids relying on receivables financing or DSO-real > 60"
+        ]
+      }
+    ],
+    "cash_protection_layer": {
+      "trigger_any": [
+        "dso_real_days > 60",
+        "cash_reserve_months_overhead < 3"
+      ],
+      "gm_uplift_points": 2
+    }
+  },
+  "gates": {
+    "outputs": [
+      "BID",
+      "BID-IF",
+      "NO-BID"
+    ],
+    "gate_keys": [
+      "G0",
+      "G1",
+      "G2",
+      "G3",
+      "G4",
+      "G5",
+      "G6",
+      "G7",
+      "G8"
+    ]
+  },
+  "workbook": {
+    "tabs": [
+      {
+        "tab_name": "CONTROL_SHEET",
+        "purpose": "Metadata + control flags used to drive all downstream tabs.",
+        "fields": {
+          "prime_directive_version": "IPD-ProjectSys v1.0",
+          "dossier_template_version": "2.1.0",
+          "solicitation_title": "",
+          "agency_name": "",
+          "solicitation_number": "",
+          "naics": "",
+          "set_aside": "",
+          "contract_type": "",
+          "ordering_structure": "",
+          "portal_name": "",
+          "portal_url": "",
+          "buyer_contact_name": "",
+          "buyer_contact_email": "",
+          "buyer_contact_phone": "",
+          "due_datetime_local": "",
+          "due_timezone": "America/New_York",
+          "q_and_a_deadline_local": "",
+          "site_visit_required": false,
+          "site_visit_date_local": "",
+          "submission_method": "",
+          "submission_format_requirements": "",
+          "attachments_required_list": [],
+          "federal_or_nonfederal": "",
+          "sam_required": "",
+          "active_sam_proof": "",
+          "uei": "",
+          "duns_legacy_optional": "",
+          "duns_required_by_solicitation": "",
+          "trailing_90d_nm_percent": "",
+          "cash_reserve_months_overhead": "",
+          "dso_real_days": "",
+          "cash_protection_layer_triggered": "",
+          "min_gm_in_effect_percent": 25,
+          "freeze_mode_active": "",
+          "freeze_mode_threshold_annualized_revenue": 25000,
+          "expected_annualized_revenue_estimate": "",
+          "bid_decision": "",
+          "bid_decision_date_local": "",
+          "ceo_approval_required": false,
+          "ceo_approval_status": "",
+          "ceo_approval_notes": "",
+          "confidentiality_note": "Internal funding/credit details are confidential; do not disclose unless explicitly required.",
+          "notes": ""
+        }
+      },
+      {
+        "tab_name": "EVIDENCE_LEDGER",
+        "purpose": "Verbatim quotes + citations. This is the compliance backbone.",
+        "fields": {
+          "entries": [
+            {
+              "topic": "",
+              "document_name": "",
+              "page": "",
+              "section": "",
+              "verbatim_quote": "",
+              "status": "FOUND | NOT_FOUND | NOT_PROVIDED"
+            }
+          ],
+          "required_topics_checklist": [
+            "Scope / Goods-only",
+            "Ordering method / IDIQ / BPA / Call orders",
+            "Estimated quantities / minimums / maximum per order / caps",
+            "Delivery locations",
+            "Delivery schedule / cadence / windows / appointments",
+            "Packaging / palletization / labeling",
+            "Substitutions / equivalents / brand restrictions",
+            "Backorder policy / fill-rate requirements",
+            "Inspection / acceptance / rejection",
+            "Invoicing method / portal / documentation",
+            "Payment terms / payment clock trigger",
+            "Returns / damages / replacements / warranty",
+            "Penalties / liquidated damages / cure periods",
+            "Termination (T4C / default) and inventory exposure",
+            "Insurance / bonding / certifications"
+          ]
+        }
+      },
+      {
+        "tab_name": "RISK_REGISTER",
+        "purpose": "Risk clauses, severity, operational impact, and mitigation or BID-IF condition.",
+        "fields": {
+          "items": [
+            {
+              "risk_id": "",
+              "topic": "",
+              "severity": "LOW | MED | HIGH",
+              "risk_statement": "",
+              "evidence_refs": [],
+              "mitigation_or_bid_if_condition": "",
+              "owner": "CCO | COO | CFO | CEO"
+            }
+          ]
+        }
+      },
+      {
+        "tab_name": "GUBES_GATES",
+        "purpose": "Gate results (PASS/FAIL/NEEDS-DATA) with blocking reasons.",
+        "fields": {
+          "G0": {
+            "status": "",
+            "blocking_missing_items": [],
+            "notes": ""
+          },
+          "G1": {
+            "status": "",
+            "evidence_refs": [],
+            "notes": ""
+          },
+          "G2": {
+            "status": "",
+            "supplier_quote_refs": [],
+            "notes": ""
+          },
+          "G3": {
+            "status": "",
+            "evidence_refs": [],
+            "assumptions": [],
+            "notes": ""
+          },
+          "G4": {
+            "status": "",
+            "evidence_refs": [],
+            "red_flags": [],
+            "notes": ""
+          },
+          "G5": {
+            "status": "",
+            "peak_exposure_usd": "",
+            "funding_capacity_usd": "",
+            "rail_used": "",
+            "notes": ""
+          },
+          "G6": {
+            "status": "",
+            "min_gm_in_effect_percent": 25,
+            "delivered_gm_percent": "",
+            "notes": ""
+          },
+          "G7": {
+            "status": "",
+            "rf1_written_financeability": "",
+            "rf2_structure_workable": "",
+            "rf3_fee_adjusted_gm_pass": "",
+            "rf4_recourse_reserved": "",
+            "notes": ""
+          },
+          "G8": {
+            "status": "",
+            "trailing_90d_nm_percent": "",
+            "band_applied": "",
+            "actions_applied": [],
+            "notes": ""
+          },
+          "FINAL": {
+            "decision": "",
+            "bid_if_conditions": [],
+            "no_bid_reasons": []
+          }
+        }
+      },
+      {
+        "tab_name": "FUNDING_MODEL",
+        "purpose": "Peak exposure vs capacity and cash-gap modeling.",
+        "fields": {
+          "assumptions": {
+            "supplier_terms": "",
+            "buyer_payment_terms": "",
+            "acceptance_delay_days": "",
+            "invoice_approval_delay_days": "",
+            "dso_real_days": "",
+            "max_release_size_from_solicitation": "",
+            "release_size_modeled": "",
+            "release_order_capping_available": ""
+          },
+          "peak_exposure": {
+            "cogs_usd": "",
+            "freight_accessorials_usd": "",
+            "packaging_labeling_usd": "",
+            "reserves_usd": "",
+            "financing_cost_during_gap_usd": "",
+            "total_peak_exposure_usd": ""
+          },
+          "funding_capacity": {
+            "safe_available_distributor_credit_usd": "",
+            "allocated_cash_reserve_usd": "",
+            "approved_loc_available_usd": "",
+            "other_facility_available_usd": "",
+            "total_funding_capacity_usd": ""
+          },
+          "pass_fail": "",
+          "rail_selected": "Distributor credit | LOC | P-card | Receivables financing | Other",
+          "notes": ""
+        }
+      },
+      {
+        "tab_name": "RECEIVABLES_FINANCING",
+        "purpose": "If used, compute financing uplift and verify RF gates.",
+        "fields": {
+          "use": false,
+          "provider_name": "",
+          "written_financeability_received": "",
+          "structure_notes_assignment_notice": "",
+          "recourse_or_nonrecourse": "",
+          "advance_rate_percent": "",
+          "fee_schedule_text": "",
+          "minimum_fees_text": "",
+          "fixed_fees_per_event": "",
+          "expected_invoice_amount_usd": "",
+          "expected_units_in_invoice": "",
+          "dso_real_days_modeled": "",
+          "computed_financing_cost_per_invoice_usd": "",
+          "computed_financing_cost_per_unit_usd": "",
+          "uplift_inserted_into_pricing": "",
+          "fee_adjusted_gm_pass": "",
+          "notes": ""
+        }
+      },
+      {
+        "tab_name": "PRICING_MODEL",
+        "purpose": "Delivered-cost pricing with embedded financing uplift if applicable.",
+        "fields": {
+          "min_gm_in_effect_percent": 25,
+          "line_items": [
+            {
+              "line_id": "",
+              "item_description": "",
+              "uom": "",
+              "est_qty": "",
+              "supplier": "",
+              "supplier_part_or_sku": "",
+              "supplier_unit_cost": "",
+              "inbound_freight_per_unit": "",
+              "packaging_labeling_per_unit": "",
+              "delivery_accessorials_per_unit": "",
+              "card_or_portal_fee_per_unit": "",
+              "replacement_reserve_per_unit": "",
+              "financing_uplift_per_unit": "",
+              "delivered_direct_cost_per_unit": "",
+              "min_sell_price_to_meet_gm_floor": "",
+              "proposed_sell_price_per_unit": "",
+              "delivered_gm_percent": "",
+              "notes": ""
+            }
+          ],
+          "rollups": {
+            "total_est_revenue_usd": "",
+            "total_est_delivered_direct_cost_usd": "",
+            "blended_delivered_gm_percent": "",
+            "notes": ""
+          }
+        }
+      },
+      {
+        "tab_name": "SUBMISSION_CHECKLIST",
+        "purpose": "Admin compliance to avoid rejection.",
+        "fields": {
+          "items": [
+            {
+              "item": "All required forms completed",
+              "status": "",
+              "notes": ""
+            },
+            {
+              "item": "All required attachments included",
+              "status": "",
+              "notes": ""
+            },
+            {
+              "item": "Naming/format requirements met",
+              "status": "",
+              "notes": ""
+            },
+            {
+              "item": "Acknowledged all amendments/addenda",
+              "status": "",
+              "notes": ""
+            },
+            {
+              "item": "Pricing meets Min GM in effect",
+              "status": "",
+              "notes": ""
+            },
+            {
+              "item": "Funding rail confirmed and documented",
+              "status": "",
+              "notes": ""
+            },
+            {
+              "item": "Final BID decision recorded",
+              "status": "",
+              "notes": ""
+            }
+          ]
+        }
+      },
+      {
+        "tab_name": "POST_AWARD",
+        "purpose": "Post-award controls and release-order discipline.",
+        "fields": {
+          "award_received_date_local": "",
+          "award_review_complete": "",
+          "award_terms_match_bid_assumptions": "",
+          "release_order_controls_defined": "",
+          "max_release_allowed_by_funding_capacity_usd": "",
+          "substitution_policy_confirmed": "",
+          "delivery_documentation_required": "",
+          "invoicing_steps_defined": "",
+          "dispute_handling_process_defined": "",
+          "notes": ""
+        }
+      },
+      {
+        "tab_name": "PROFILE_REFERENCE",
+        "purpose": "Reference-only facts; not marketing claims.",
+        "fields": {
+          "company_name": "GovBid Innovations LLC",
+          "ceo": "Shaun Dew",
+          "goods_only": true,
+          "baseline_min_gm_percent": 25,
+          "planned_overhead_percent": 14,
+          "nm_target_percent": 10,
+          "nm_floor_percent": 8,
+          "freeze_mode_threshold_annualized_revenue_usd": 25000,
+          "federal_gate_note": "If Active SAM is required and proof is not provided, output NO-BID.",
+          "coverage_gate_note": "Coverage gating must use authoritative allowlists; do not infer from pins/authority lists."
+        }
+      },
+      {
+        "tab_name": "CHANGE_LOG",
+        "purpose": "Audit trail for template evolution.",
+        "fields": {
+          "entries": [
+            {
+              "version": "2.1.0",
+              "date": "2026-02-27",
+              "summary": "Full recreate: aligned to locked GM/NM control system, freeze threshold $25k, receivables financing module, evidence ledger standard, and confidentiality banners."
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
