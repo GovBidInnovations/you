@@ -1,0 +1,7 @@
+{
+  "policy_pack_id": "govbid_default",
+  "name": "GovBid Default (Goods-Only, Compliance-First)",
+  "prime_directive_version": "IPD-ProjectSys v1.0",
+  "dossier_template_version_expected": "2.1.0",
+  "coverage_bundle_version_expected": "2.0.0"
+}
