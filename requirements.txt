@@ -1,0 +1,7 @@
+fastapi==0.104.1
+uvicorn==0.24.0
+pydantic>=2.6
+pydantic-settings>=2.2
+jsonschema>=4.21
+rich>=13.7
+typer>=0.12
